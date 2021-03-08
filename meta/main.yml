@@ -1,0 +1,16 @@
+galaxy_info:
+  role_name: update-route53-onboot
+  author: gavmain
+  description: Creates / updates Route53 records upon boot
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+    - name: EL
+      versions:
+      - 7
+  galaxy_tags:
+    - aws
+    - ec2
+    - route53
+    - dns
+    - amazon

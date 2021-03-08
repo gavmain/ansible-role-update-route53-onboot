@@ -1,0 +1,41 @@
+---
+# tasks file for update-route53-onboot
+- name: Install dependencies
+  yum:
+    name: "{{ update_dns_rpm_deps }}"
+    state: present
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+
+- name: Install the update-route53.sh script
+  copy:
+    src: usr/local/sbin/update-route53.sh
+    dest: /usr/local/sbin/update-route53.sh
+    mode: 0755
+    owner: root
+    group: root
+  notify: restart update-route53.service
+
+- name: Install the update-route53.cfg file
+  template:
+    src: usr/local/etc/update-route53.cfg.j2
+    dest: /usr/local/etc/update-route53.cfg
+    mode: 0644
+    owner: root
+    group: root
+  notify: restart update-route53.service
+
+- name: Install the update-route53.service file
+  copy:
+    src: etc/systemd/system/update-route53.service
+    dest: /etc/systemd/system/update-route53.service
+    mode: 0644
+    owner: root
+    group: root
+  notify: systemd daemon reload
+
+- name: Start update-route53.service - ignore systemd dependency
+  ansible.builtin.systemd:
+    state: started
+    no_block: yes
+    name: update-route53.service

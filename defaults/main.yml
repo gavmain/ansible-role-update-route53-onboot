@@ -1,0 +1,5 @@
+---
+# defaults file for update-route53-onboot
+update_dns_rpm_deps:
+  - awscli
+  - jq

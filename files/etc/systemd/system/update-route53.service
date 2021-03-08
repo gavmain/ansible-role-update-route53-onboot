@@ -1,0 +1,9 @@
+[Unit]
+Description=Checks and updates Route53 records if the Public IP has changed
+After=cloud-final.service
+
+[Service]
+ExecStart=/usr/local/sbin/update-route53.sh
+
+[Install]
+WantedBy=cloud-init.target

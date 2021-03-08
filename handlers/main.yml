@@ -1,0 +1,11 @@
+---
+# handlers file for update-route53-onboot
+- name: systemd daemon reload
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: restart update-route53.service
+  ansible.builtin.systemd:
+    state: restarted
+    no_block: yes
+    name: update-route53.service
