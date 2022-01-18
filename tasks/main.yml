@@ -34,6 +34,11 @@
     group: root
   notify: systemd daemon reload
 
+- name: Enable update-route53.service
+  ansible.builtin.systemd:
+    name: update-route53.service
+    enabled: yes
+
 - name: Start update-route53.service - ignore systemd dependency
   ansible.builtin.systemd:
     state: started
